@@ -116,8 +116,7 @@ export default {
         // Update the event in the calendar
         let event = this.calendarOptions.events.find(e => e.id === Number(updatedBooking.id));
         console.log(event);
-        event.title = updatedBooking.lecturerName + " - " + updatedBooking.subject;
-        event.extendedProps.lecturerName = updatedBooking.lecturerName;
+        event.title = updatedBooking.lecturerName + " - " + updatedBooking.subject + (updatedBooking.status === "Pending" ? " - معلق" : ""); event.extendedProps.lecturerName = updatedBooking.lecturerName;
         event.extendedProps.subject = updatedBooking.subject;
         event.start = updatedBooking.startTime;
         event.end = updatedBooking.endTime;
@@ -129,7 +128,7 @@ export default {
         // Add new event to the calendar
         this.calendarOptions.events.push({
           id: updatedBooking.id,
-          title: `${updatedBooking.lecturerName} - ${updatedBooking.subject}`,
+          title: `${updatedBooking.lecturerName} - ${updatedBooking.subject} - معلق`,
           start: updatedBooking.startTime,
           end: updatedBooking.endTime,
           color: "#C2185B",
@@ -148,7 +147,7 @@ export default {
       const response = await axios.get("https://hallbooking-production-1a31.up.railway.app/api/Booking");
       this.calendarOptions.events = response.data.map((booking) => ({
         id: booking.id,
-        title: `${booking.lecturerName} - ${booking.subject}`,
+        title: `${booking.lecturerName} - ${booking.subject}` + (booking.status === "Pending" ? " - معلق" : ""),
         start: booking.startTime,
         end: booking.endTime,
         color: "#C2185B",

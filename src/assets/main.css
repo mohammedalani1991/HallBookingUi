@@ -246,3 +246,21 @@ body {
 .fc-daygrid-event-dot {
   display: none;
 }
+
+@media (max-width: 768px) {
+  /* Tablets & smaller */
+  .fc-col-header-cell-cushion {
+    font-size: 0.875rem; /* Smaller text */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Mobile */
+  .fc-col-header-cell-cushion {
+    font-size: 0.6rem; /* Even smaller text */
+  }
+}
+.fc-toolbar-chunk {
+  display: flex;
+  justify-content: center;
+}

@@ -19,6 +19,7 @@ export default {
     return {
       password: "",
       correctPassword: "1234", // Change this to the actual password
+      adminPassword: "MES1234#",
       errorMessage: "",
     };
   },
@@ -31,10 +32,16 @@ export default {
   },
   methods: {
     checkPassword() {
-      if (this.password === this.correctPassword) {
+
+      if (this.password === this.adminPassword) {
+        Cookies.set("user_password", this.password, { expires: 7 }); // Save for 7 days
+        this.$router.push("/Events"); // Redirect to dashboard
+
+      } else if (this.password === this.correctPassword || this.adminPassword) {
         Cookies.set("user_password", this.password, { expires: 7 }); // Save for 7 days
         this.$router.push("/Adminbookings"); // Redirect to dashboard
-      } else {
+      }
+      else {
         this.errorMessage = "Incorrect password. Try again.";
       }
     }

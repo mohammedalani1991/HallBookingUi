@@ -81,18 +81,21 @@ export default {
   async mounted() {
     try {
       const response = await axios.get("https://hallbooking-production-1a31.up.railway.app/api/Booking");
-      this.calendarOptions.events = response.data.map((booking) => ({
-        id: booking.id,
-        title: `${booking.lecturerName} - ${booking.subject}`,
-        start: booking.startTime,
-        end: booking.endTime,
-        color: "#C2185B",
-        extendedProps: {
-          subject: booking.subject,
-          lecturerName: booking.lecturerName,
-          status: booking.status,
-        },
-      }));
+      this.calendarOptions.events = response.data
+        .filter(booking => booking.status === "Aproved" || "Completed") // Filtering step
+        .map(booking => ({
+          id: booking.id,
+          title: `${booking.lecturerName} - ${booking.subject}`,
+          start: booking.startTime,
+          end: booking.endTime,
+          color: "#C2185B",
+          extendedProps: {
+            subject: booking.subject,
+            lecturerName: booking.lecturerName,
+            status: booking.status,
+          },
+        }));
+
     } catch (error) {
       console.error("Failed to fetch bookings:", error);
     }
