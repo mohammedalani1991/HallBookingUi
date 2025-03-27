@@ -82,7 +82,7 @@ export default {
     try {
       const response = await axios.get("https://hallbooking-production-1a31.up.railway.app/api/Booking");
       this.calendarOptions.events = response.data
-        .filter(booking => booking.status === "Aproved" || "Completed") // Filtering step
+        .filter(booking => booking.status === "Approved" || booking.status === "Completed") // Filtering step
         .map(booking => ({
           id: booking.id,
           title: `${booking.lecturerName} - ${booking.subject}`,
